@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   let list = useSelector((state) => state.cartItems);
-  console.log("Updated list", Array.isArray(list));
+  console.log("Updated list", list);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <li className="navbar-brand">Online Test Application</li>
+      <li className="navbar-brand">League of Legends</li>
       <button
         className="navbar-toggler"
         type="button"
@@ -31,10 +31,7 @@ const NavBar = () => {
             // onClick={handleLogout}
           >
             <a className="nav-link" to="/">
-              Watch list item count:{" "}
-              {/* {list !== undefined
-                ? list.filter((item) => item.added_to_cart === true).length
-                : 0} */}
+              Watch list item count: {list.length}
             </a>
           </li>
         </ul>

@@ -16,21 +16,21 @@ function reducer(state = initialState, action) {
         championsList: action.value,
       };
     case actions.ADD_TO_CART:
-      let result = state.championsList.filter(
-        (champ) => champ.id === action.value
+      let result = 0;
+      const isItemAdded = state.cartItems.filter(
+        (item) => item.id === action.value
       );
+      if (isItemAdded.length === 0) {
+        result = state.championsList.filter(
+          (champ) => champ.id === action.value
+        );
+      }
       return {
         ...state,
-        championsList: state.championsList.map((champ) =>
-          champ.id === action.value
-            ? Object.assign({}, champ, (champ.added_to_cart = true))
-            : champ
-        ),
-        cartItems: state.cartItems.map((item) =>
-          item.id === result.id
-            ? [...state.cartItems]
-            : [...state.cartItems, result[0]]
-        ),
+        cartItems:
+          isItemAdded.length === 0
+            ? [...state.cartItems, result[0]]
+            : [...state.cartItems],
       };
     case actions.REMOVE_FROM_CART:
 

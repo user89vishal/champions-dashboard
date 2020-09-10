@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { saveList, addToCart } from "../redux/action/action";
 import { useDispatch, useSelector } from "react-redux";
 
+import Popup from "./common/popup";
+import ChampionsView from "./championsView";
+import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
+
 const champions = [
   {
     armor: 20.88,
@@ -311,19 +316,16 @@ const champions = [
 
 const Champions = () => {
   const [sortedField, setShortedField] = useState(null);
+  const [selectedChampion, setSelectedChampion] = useState();
   const [direction, setDirection] = useState("ascending");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   let list = useSelector((state) => state.cartItems);
-  console.log("champions.jsx", sortedField);
-  console.log("champions.jsx", direction);
 
   useEffect(() => {
     dispatch(saveList(champions));
   }, []);
-
-  const handleAddButton = (champion) => {
-    dispatch(addToCart(champion.id));
-  };
 
   if (sortedField !== null) {
     champions.sort((a, b) => {
@@ -339,66 +341,49 @@ const Champions = () => {
     });
   }
 
+  const handleAddButton = (champion) => {
+    dispatch(addToCart(champion.id));
+  };
+
+  function handleChampNameClick(champion) {
+    setSelectedChampion(champion);
+    setShow(true);
+  }
+
+  const handleSortingClick = (key) => {
+    setShortedField(key);
+    setDirection(direction === "ascending" ? "descending" : "ascending");
+  };
+
+  const handleClose = () => setShow(false);
+
+  const handlePageChange = (page) => {
+    console.log("handlePageChange", page);
+    setCurrentPage(page);
+  };
+
+  const listToDisplay = paginate(champions, currentPage, 4);
+
   return (
-    <table className="table mt-5">
-      <thead>
-        <tr>
-          <th
-            onClick={() => {
-              setShortedField("name");
-              setDirection(
-                direction === "ascending" ? "descending" : "ascending"
-              );
-            }}
-          >
-            Name
-          </th>
-          <th>Image</th>
-          <th
-            onClick={() => {
-              setShortedField("armor");
-              setDirection(
-                direction === "ascending" ? "descending" : "ascending"
-              );
-            }}
-          >
-            Armor
-          </th>
-          <th
-            onClick={() => {
-              setShortedField("movespeed");
-              setDirection(
-                direction === "ascending" ? "descending" : "ascending"
-              );
-            }}
-          >
-            Movespeed
-          </th>
-          <th>Add to watch list</th>
-        </tr>
-      </thead>
-      <tbody>
-        {champions.map((champion) => (
-          <tr>
-            <td>{champion.name}</td>
-            <td>
-              <img src={champion.image_url} />
-            </td>
-            <td>{champion.armor}</td>
-            <td>{champion.movespeed}</td>
-            <td>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => handleAddButton(champion)}
-              >
-                Add
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div>
+      <Popup
+        show={show}
+        closePopup={handleClose}
+        dataSource={selectedChampion}
+      />
+      <ChampionsView
+        championsDataSource={listToDisplay}
+        handleSorting={handleSortingClick}
+        handleChampionClick={handleChampNameClick}
+        handleAddToCart={handleAddButton}
+      />
+      <Pagination
+        activePageNumber={currentPage}
+        itemsCount={champions.length}
+        pageSize={4}
+        onPageChange={handlePageChange}
+      />
+    </div>
   );
 };
 

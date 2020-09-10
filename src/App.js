@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 
 import Champions from "./components/champions";
@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <NavBar />
-      <div className="container">
+      <div className="ml-3 mr-3">
         <Champions />
       </div>
     </div>
