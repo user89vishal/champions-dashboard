@@ -6,8 +6,7 @@ const initialState = {
 };
 
 function reducer(state = initialState, action) {
-  console.log("In Reducer");
-  console.log("Action Type: ", action.type, "Value: ", action.value);
+  console.log("Action Type: ", action.type, "Action Value: ", action.value);
 
   switch (action.type) {
     case actions.SAVE_DATA:
@@ -33,6 +32,13 @@ function reducer(state = initialState, action) {
             : [...state.cartItems],
       };
     case actions.REMOVE_FROM_CART:
+      let filterdList = state.cartItems.filter(
+        (item) => item.id !== action.value
+      );
+      return {
+        ...state,
+        cartItems: [...filterdList],
+      };
 
     default:
       return state;

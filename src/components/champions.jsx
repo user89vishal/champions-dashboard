@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { saveList, addToCart } from "../redux/action/action";
+import { saveList, addToCart, removeFromCart } from "../redux/action/action";
 import { useDispatch, useSelector } from "react-redux";
 
 import Popup from "./common/popup";
@@ -321,7 +321,6 @@ const Champions = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  let list = useSelector((state) => state.cartItems);
 
   useEffect(() => {
     dispatch(saveList(champions));
@@ -341,8 +340,13 @@ const Champions = () => {
     });
   }
 
-  const handleAddButton = (champion) => {
-    dispatch(addToCart(champion.id));
+  const handleAddButton = (champion, actionType) => {
+    console.log("ActionType", actionType);
+    if (actionType === "add") {
+      dispatch(addToCart(champion.id));
+    } else {
+      dispatch(removeFromCart(champion.id));
+    }
   };
 
   function handleChampNameClick(champion) {

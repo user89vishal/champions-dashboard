@@ -8,8 +8,8 @@ const ChampionsView = ({
   handleChampionClick,
   handleAddToCart,
 }) => {
-  let list = useSelector((state) => state.cartItems);
-  console.log("List in champions view", list);
+  let cartItemsList = useSelector((state) => state.cartItems);
+  // console.log("List of cart items: ", cartItemsList);
 
   return (
     <table className="table">
@@ -52,16 +52,24 @@ const ChampionsView = ({
             <td>{champion.armor}</td>
             <td>{champion.movespeed}</td>
             <td>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => handleAddToCart(champion)}
-              >
-                {list.map((item) =>
-                  item.id === champion.id ? "REMOVE" : "ADD"
-                )}
-                Add
-              </button>
+              {cartItemsList.filter((item) => item.id === champion.id)
+                .length !== 0 ? (
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => handleAddToCart(champion, "remove")}
+                >
+                  Remove
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => handleAddToCart(champion, "add")}
+                >
+                  Add
+                </button>
+              )}
             </td>
           </tr>
         ))}

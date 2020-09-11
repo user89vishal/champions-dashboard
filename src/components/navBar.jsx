@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   let list = useSelector((state) => state.cartItems);
-  console.log("Updated list", list);
+  // console.log("Updated list", list);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
