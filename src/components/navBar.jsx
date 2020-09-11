@@ -1,6 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+
 const NavBar = () => {
   let list = useSelector((state) => state.cartItems);
   // console.log("Updated list", list);
@@ -30,9 +33,21 @@ const NavBar = () => {
             style={{ cursor: "pointer" }}
             // onClick={handleLogout}
           >
-            <a className="nav-link" to="/">
-              Watch list item count: {list.length}
-            </a>
+            {/* Watch list item count: {list.length} */}
+            {/* <FontAwesomeIcon
+              style={{ height: 30, width: 30, marginRight: 30 }}
+              icon={faCartPlus}
+            /> */}
+
+            <div style={{ position: "relative", marginRight: 20 }}>
+              <FontAwesomeIcon
+                style={{ height: 30, width: 30 }}
+                icon={faCartPlus}
+              />
+              <span style={{ position: "absolute", color: "red", bottom: 20 }}>
+                {list.length !== 0 && list.length}
+              </span>
+            </div>
           </li>
         </ul>
       </div>
