@@ -1,0 +1,23 @@
+.container1 {
+  width: 540px;
+  margin: 50px;
+  display: table;
+}
+
+.box {
+  width: 540px;
+  margin: 50px;
+  display: table;
+}
+.box-row {
+  display: table-row;
+}
+.box-cell.box1 {
+  background: green;
+  color: white;
+  text-align: justify;
+}
+.box-cell.box2 {
+  background: lightgreen;
+  text-align: justify;
+}

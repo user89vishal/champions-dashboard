@@ -5,7 +5,8 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 import AutoComplete from "./common/autoComplete";
 
-const NavBar = ({ onSearch }) => {
+const NavBar = (props) => {
+  const { onSearch, handleCartClick } = props;
   let list = useSelector((state) => state.cartItems);
   let champions = useSelector((state) => state.championsList);
 
@@ -22,6 +23,7 @@ const NavBar = ({ onSearch }) => {
               <FontAwesomeIcon
                 style={{ height: 30, width: 30 }}
                 icon={faCartPlus}
+                onClick={handleCartClick}
               />
               <span style={{ position: "absolute", color: "red", bottom: 20 }}>
                 {list.length !== 0 && list.length}

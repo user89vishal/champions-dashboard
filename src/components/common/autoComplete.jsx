@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
 import "./autoCompleteText.css";
 
@@ -42,11 +41,6 @@ export class Autocomplete extends Component {
 
     const filteredSuggestions = result.filter((item) => item);
 
-    // const filteredSuggestions = suggestions.filter(
-    //   (suggestion) =>
-    //     suggestion.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    // );
-
     if (userInput.toLowerCase() === "") {
       onSearch("");
     }
@@ -62,7 +56,6 @@ export class Autocomplete extends Component {
     const {
       onChange,
       onClick,
-      onKeyDown,
       state: {
         activeSuggestion,
         filteredSuggestions,
@@ -98,7 +91,6 @@ export class Autocomplete extends Component {
         <input
           type="text"
           onChange={onChange}
-          onKeyDown={onKeyDown}
           value={userInput}
           placeholder="Search Legends"
         />

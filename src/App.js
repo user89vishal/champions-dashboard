@@ -1,22 +1,17 @@
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import "./App.css";
+import { Route, Switch } from "react-router-dom";
 
 import Champions from "./components/champions";
-import NavBar from "./components/navBar";
-
-const Home = lazy(() => import("./home"));
+import CartList from "./components/cartItems";
 
 function App() {
   return (
     <div>
-      {/* <Suspense fallback={<div>Please wait...</div>}>
-        <h1>Lazy loading</h1>
-        <Home />
-      </Suspense> */}
-
-      {/* <div className="ml-3 mr-3"> */}
-      <Champions />
-      {/* </div> */}
+      <Switch>
+        <Route path="/cartItems" component={CartList} />
+        <Route path="/" component={Champions} />
+      </Switch>
     </div>
   );
 }

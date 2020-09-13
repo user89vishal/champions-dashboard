@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const ChampionsView = ({
   championsDataSource,
@@ -9,7 +9,6 @@ const ChampionsView = ({
   handleAddToCart,
 }) => {
   let cartItemsList = useSelector((state) => state.cartItems);
-  // console.log("List of cart items: ", cartItemsList);
 
   return (
     <table className="table">
