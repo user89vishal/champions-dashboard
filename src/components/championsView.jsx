@@ -39,7 +39,7 @@ const ChampionsView = ({
       </thead>
       <tbody>
         {championsDataSource.map((champion) => (
-          <tr>
+          <tr key={champion.id}>
             <td
               style={{ cursor: "pointer" }}
               onClick={() => handleChampionClick(champion)}

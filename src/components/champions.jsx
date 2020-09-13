@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { saveList, addToCart, removeFromCart } from "../redux/action/action";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import Popup from "./common/popup";
 import ChampionsView from "./championsView";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
+import NavBar from "../components/navBar";
 
 const champions = [
   {
@@ -320,6 +321,7 @@ const Champions = () => {
   const [direction, setDirection] = useState("ascending");
   const [currentPage, setCurrentPage] = useState(1);
   const [show, setShow] = useState(false);
+  const [searchedItem, setSearchedItem] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -349,6 +351,11 @@ const Champions = () => {
     }
   };
 
+  function itemSearched(item) {
+    console.log("Item searched: from champions", item);
+    setSearchedItem(item);
+  }
+
   function handleChampNameClick(champion) {
     setSelectedChampion(champion);
     setShow(true);
@@ -365,11 +372,17 @@ const Champions = () => {
     console.log("handlePageChange", page);
     setCurrentPage(page);
   };
+  //filter based on Search
+  let filteredResult =
+    searchedItem !== ""
+      ? champions.filter((item) => item.name === searchedItem)
+      : champions;
 
-  const listToDisplay = paginate(champions, currentPage, 4);
+  const listToDisplay = paginate(filteredResult, currentPage, 4);
 
   return (
     <div>
+      <NavBar onSearch={itemSearched} />
       <Popup
         show={show}
         closePopup={handleClose}
